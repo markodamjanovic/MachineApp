@@ -4,10 +4,10 @@ using Dapper.Contrib.Extensions;
 namespace MachineApp.Models
 {
     [Table("malfunctions")]
-    public class Malfunctions
+    public class Malfunction
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int MachineId { get; set; }
