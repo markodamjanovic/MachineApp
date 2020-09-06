@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Machine Table";
+}
+
+@model IEnumerable<Machine>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        foreach (Machine machine in Model)
+        {
+            <div>@machine.Name</div>
+        }
+    }
+</div>
