@@ -12,19 +12,58 @@ namespace MachineApp.Models
         {
             _databaseConnection = databaseConnection;
         }
-        public async Task<IEnumerable<Machine>> GetMachines()
-        {   
+
+        public async Task<T> Get<T>(int id) where T: class
+        {
             using (var connection = _databaseConnection.GetDbConnection())
             {
-                return await connection.GetAllAsync<Machine>();
+                return await connection.GetAsync<T>(id);
             }
         }
-
-        public async Task<IEnumerable<Malfunctions>> GetMalfunctions()
+        public async Task<IEnumerable<T>> GetAll<T>() where T : class
         {
-            using(var connection = _databaseConnection.GetDbConnection())
+            using (var connection = _databaseConnection.GetDbConnection())
             {
-                return await connection.GetAllAsync<Malfunctions>();
+                return await connection.GetAllAsync<T>();
+            }
+        }
+        public async Task<int> Insert<T>(T model) where T: class
+        {
+            using (var connection = _databaseConnection.GetDbConnection())
+            {
+                return await connection.InsertAsync<T>(model);
+            }
+        }
+        public async Task<T> Update<T>(T model) where T: class
+        {
+            using (var connection = _databaseConnection.GetDbConnection())
+            {
+                var result = await connection.UpdateAsync<T>(model);
+
+                if(result)
+                {
+                    return model;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public async Task<T> Delete<T>(T model) where T: class
+        {
+            using (var connection = _databaseConnection.GetDbConnection())
+            {   
+                var result = await connection.DeleteAsync(model);
+
+                if(result)
+                {
+                    return model;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

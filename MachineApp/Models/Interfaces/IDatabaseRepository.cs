@@ -5,7 +5,10 @@ namespace MachineApp.Models
 {
     public interface IDatabaseRepository
     {
-        Task<IEnumerable<Machine>> GetMachines();
-        Task<IEnumerable<Malfunctions>> GetMalfunctions();
+        Task<IEnumerable<T>> GetAll<T>() where T: class;
+        Task<T> Get<T>(int id) where T: class;
+        Task<int> Insert<T>(T model) where T: class;
+        Task<T> Update<T>(T model) where T: class;
+        Task<T> Delete<T>(T model) where T: class;
     }
 }
