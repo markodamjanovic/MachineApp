@@ -22,11 +22,19 @@ namespace MachineApp.Controllers
         }
 
 
-        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {   
             Machine model = await _databaseRepository.Get<Machine>(id);
             return View(model);
+        }
+
+        [HttpDelete]
+        public async Task Delete(int id)
+        {   
+            Machine model = await _databaseRepository.Get<Machine>(id);
+            var result = await _databaseRepository.Delete<Machine>(model);
+
+            RedirectToAction("MachineTable", "Machine");
         }
 
     }

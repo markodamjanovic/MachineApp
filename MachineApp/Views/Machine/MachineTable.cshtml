@@ -4,12 +4,53 @@
 
 @model IEnumerable<Machine>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @{
-        foreach (Machine machine in Model)
-        {
-            <div>@machine.Name</div>
-        }
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div> 
+    <span>
+        <h4 class="display-4"> Machines </h4> 
+        <button class="btn btn-primary"> New Machine </button>
+    </span>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Company</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+                @{
+                    foreach (Machine machine in Model)
+                    {
+                        <tr>
+                            <th> <i  class="fa fa-cogs fa-lg" aria-hidden="true"></i> </th>
+                            <td> @machine.Name </td>
+                            <td> @machine.Description </td>
+                            <td> @machine.Company </td>
+                            <td> 
+                                  <form method="post" asp-action="Edit" asp-controller="Machine">
+                                    <input type="hidden" name="id" value="@machine.id" class="form-control"/>
+                                    <button type="submit" class="btn btn-primary"> 
+                                           <i class="fa fa-pencil fa-lg" aria-hidden="true">  </i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="delete" asp-action="Delete" asp-controller="Machine">
+                                    <input type="hidden" name="id" value="@machine.id" class="form-control"/>
+                                        <button class="btn" type="submit"> 
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true">  </i>
+                                        </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+        </tbody>
+    </table>
+    </div>
 </div>
