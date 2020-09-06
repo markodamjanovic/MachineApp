@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MachineApp.Models;
@@ -10,17 +8,14 @@ namespace MachineApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IDatabaseRepository _databaseRepository;
-        public HomeController(ILogger<HomeController> logger, IDatabaseRepository databaseRepository )
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _databaseRepository = databaseRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {   
-            IEnumerable<Machine> model = await _databaseRepository.GetMachines();
-            return View(model);
+            return RedirectToAction("MachineTable", "Machine");
         }
 
 
