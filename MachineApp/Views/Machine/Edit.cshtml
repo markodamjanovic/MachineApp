@@ -4,9 +4,45 @@
 
 @model Machine
 
-<div class="text-center">
-    <h3 class="display-4">Edit Machine</h3>        
-        <div>@Model.Name</div>
-        <div>@Model.Description</div>
-        <div>@Model.Company</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row justify-content-center align-items-center">
+    <h3 class="col-lg-4 text-center">Edit Machine</h3>        
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col-lg-5 col-md-3">
+            <form method="post" asp-action="InsertOrUpdate" asp-controller="Machine">
+                <div class="form-group">
+                    <input type="hidden" name="id" value="@Model.id" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" value="@Model.Name"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" value="@Model.Description" class="form-control" rows="4"> </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Company"></label>
+                    <input asp-for="Company" value="@Model.Company" class="form-control"/>
+                    <span asp-validation-for="Company" class="text-danger"></span>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                     <div class="col">
+                        <button asp-action="MachineTable" asp-controller="Machine" class="btn btn-primary"> 
+                            <i class="fa fa-undo fa-lg" aria-hidden="true"></i> 
+                            Return
+                        </button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary"> 
+                            <i class="fa fa-save fa-lg" aria-hidden="true"></i> 
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </div>
 </div>

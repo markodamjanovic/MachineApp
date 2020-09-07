@@ -22,19 +22,57 @@ namespace MachineApp.Controllers
         }
 
 
+        [HttpPost]
         public async Task<IActionResult> Edit(int id)
         {   
-            Machine model = await _databaseRepository.Get<Machine>(id);
+            Machine model = new Machine{id = 0, Name=string.Empty, Description=string.Empty, Company=string.Empty};
+            if(ModelState.IsValid)
+            { 
+                Machine machine = await _databaseRepository.Get<Machine>(id);
+                
+                if (machine != null)                {
+                    model = machine;
+                }
+            }
+
             return View(model);
         }
 
-        [HttpDelete]
-        public async Task Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> InsertOrUpdate(Machine model)
+        {   
+            Machine newModel = new Machine();
+            bool result;
+            
+            var a = ModelState.Values;
+
+            if (ModelState.IsValid)
+            {   
+                if (model.id == 0)
+                {
+                    result = await _databaseRepository.Insert<Machine>(model) > 0;
+                }
+                else
+                {
+                    result = await _databaseRepository.Update<Machine>(model) != null;
+                }
+                
+                if(result)
+                {
+                    return RedirectToAction("MachineTable", "Machine");
+                }
+            }
+            
+            return View("Edit", newModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {   
             Machine model = await _databaseRepository.Get<Machine>(id);
             var result = await _databaseRepository.Delete<Machine>(model);
-
-            RedirectToAction("MachineTable", "Machine");
+            
+            return RedirectToAction("MachineTable", "Machine");
         }
 
     }

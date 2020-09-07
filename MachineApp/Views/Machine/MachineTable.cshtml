@@ -6,10 +6,19 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div> 
-    <span>
-        <h4 class="display-4"> Machines </h4> 
-        <button class="btn btn-primary"> New Machine </button>
-    </span>
+    <div class="row">
+        <div class="col">
+             <h3>Machines </h3> 
+        </div>
+        <div class="col-auto">
+             <form method="post" asp-action="Edit" asp-controller="Machine">
+                    <input type="hidden" name="id" value="0" class="form-control"/>
+                    <button class="btn btn-primary" type="submit"> 
+                        <i class="fa fa-plus-square fa-lg" aria-hidden="true"> </i> New Machine
+                    </button>
+            </form> 
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
         <thead>
@@ -40,7 +49,7 @@
                                 </form>
                             </td>
                             <td>
-                                <form method="delete" asp-action="Delete" asp-controller="Machine">
+                                <form method="post" asp-action="Delete" asp-controller="Machine">
                                     <input type="hidden" name="id" value="@machine.id" class="form-control"/>
                                         <button class="btn" type="submit"> 
                                             <i class="fa fa-trash fa-lg" aria-hidden="true">  </i>
