@@ -22,7 +22,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
         <thead>
-            <tr>
+            <tr class="text-center">
             <th scope="col"></th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
@@ -35,7 +35,7 @@
                 @{
                     foreach (Machine machine in Model)
                     {
-                        <tr>
+                        <tr class="text-center">
                             <th> <i  class="fa fa-cogs fa-lg" aria-hidden="true"></i> </th>
                             <td> @machine.Name </td>
                             <td> @machine.Description </td>
