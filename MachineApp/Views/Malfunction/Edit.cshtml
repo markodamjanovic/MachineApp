@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Edit Malfunction";
+}
+
+@model MalfunctionEditViewModel
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row justify-content-center align-items-center">
+    <h3 class="col-lg-4 text-center">Edit Malfunction</h3>        
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col-lg-5 col-md-3">
+            <form method="post" asp-action="InsertOrUpdate" asp-controller="Malfunction">
+                <div class="form-group">
+                    <input type="hidden" name="id" value="@Model.Malfunction.id" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Malfunction.Name"></label>
+                    <input asp-for="Malfunction.Name" class="form-control" value="@Model.Malfunction.Name"/>
+                    <span asp-validation-for="Malfunction.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Malfunction.Description"></label>
+                    <textarea asp-for="Malfunction.Description" value="@Model.Malfunction.Description" class="form-control" rows="4"> </textarea>
+                    <span asp-validation-for="Malfunction.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="Malfunction.MachineId" value="@Model.Malfunction.MachineId" class="form-control"/>
+                </div>
+                 <div class="form-group">
+                    <label for="inputState">Machine Name</label>
+                    <select  asp-for="Malfunction.MachineName" id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        @{
+                            foreach (Machine machine in Model.Machines)
+                            {
+                                <option value="@machine.Name"> @machine.Name </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Malfunction.MachineName"></label>
+                    <input asp-for="Malfunction.MachineName" class="form-control" value="@Model.Malfunction.MachineName"/>
+                    <span asp-validation-for="Malfunction.MachineName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="Malfunction.Status" class="form-check-input" value="@Model.Malfunction.Status"/>
+                        <label class="form-check-label" asp-for="Malfunction.Status">Status </label>
+                        <span asp-validation-for="Malfunction.Status" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                     <div class="col">
+                        <button asp-action="MalfunctionsTable" asp-controller="Malfunction" class="btn btn-primary"> 
+                            <i class="fa fa-undo fa-lg" aria-hidden="true"></i> 
+                            Return
+                        </button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary"> 
+                            <i class="fa fa-save fa-lg" aria-hidden="true"></i> 
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
