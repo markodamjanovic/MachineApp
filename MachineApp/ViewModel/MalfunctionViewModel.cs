@@ -1,13 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-
-namespace MachineApp.Models
+namespace MachineApp.ViewModel
 {
-    [Dapper.Contrib.Extensions.Table("malfunctions")]
-    public class Malfunction
+    public class MalfunctionViewModel
     {
-        [Dapper.Contrib.Extensions.Key]
         public int id { get; set; }
         
         [Required]
@@ -19,6 +16,10 @@ namespace MachineApp.Models
         
         [Required]
         public int MachineId { get; set; }
+
+        [Required]
+        [VerifyMachineName()]
+        public string MachineName {get; set;}
         
         public bool Status { get; set; }
         
