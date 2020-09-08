@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MachineApp.Models;
+using System.Linq;
 
 namespace MachineApp.Controllers
 {
@@ -44,8 +45,6 @@ namespace MachineApp.Controllers
             Machine newModel = new Machine();
             bool result;
             
-            var a = ModelState.Values;
-
             if (ModelState.IsValid)
             {   
                 if (model.id == 0)
@@ -70,7 +69,16 @@ namespace MachineApp.Controllers
         public async Task<IActionResult> Delete(int id)
         {   
             Machine model = await _databaseRepository.Get<Machine>(id);
-            var result = await _databaseRepository.Delete<Machine>(model);
+            IEnumerable<Malfunction> malfunctions = await _databaseRepository.GetAll<Malfunction>();
+            var malfunctionsToDelete = malfunctions.Where( m => m.MachineId == model.id);
+
+            var malfunctionResult = _databaseRepository.DeleteList<Malfunction>(malfunctionsToDelete);
+            
+            if(malfunctionResult != null)
+            {
+                var result = await _databaseRepository.Delete<Machine>(model);
+            }
+            
             
             return RedirectToAction("MachineTable", "Machine");
         }

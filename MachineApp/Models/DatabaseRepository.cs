@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
@@ -63,6 +64,40 @@ namespace MachineApp.Models
                 else
                 {
                     return null;
+                }
+            }
+        }
+        public async Task<IEnumerable<T>> DeleteList<T>(IEnumerable<T> models) where T: class
+        {
+            using (var connection = _databaseConnection.GetDbConnection())
+            {   
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        bool result = true;
+                        foreach (T model in models)
+                        {
+                            result &= await connection.DeleteAsync(model);
+                        }
+                        
+                        if(result)
+                        {
+                            transaction.Commit();
+                            return models;
+                        }
+                        else
+                        {   
+                            transaction.Rollback();
+                            return null;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        return null;
+                    }
                 }
             }
         }

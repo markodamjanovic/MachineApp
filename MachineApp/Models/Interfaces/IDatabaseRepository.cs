@@ -10,5 +10,6 @@ namespace MachineApp.Models
         Task<int> Insert<T>(T model) where T: class;
         Task<T> Update<T>(T model) where T: class;
         Task<T> Delete<T>(T model) where T: class;
+        Task<IEnumerable<T>> DeleteList<T>(IEnumerable<T> models) where T: class;
     }
 }
