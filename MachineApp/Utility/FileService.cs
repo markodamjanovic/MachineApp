@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using MachineApp.Controllers;
@@ -135,6 +133,15 @@ namespace MachineApp.Utility
         private string GetFullFilePath(string folder, string fileName)
         {
             return Path.Combine(GetUploadsFolder(folder), fileName);
+        }
+
+        public void DeleteFile(string fileName)
+        {   
+            string directory = GetFullFilePath(FILES_FOLDER, fileName);
+            if(File.Exists(directory))
+            {
+                File.Delete(directory);
+            }
         }
     }
 }

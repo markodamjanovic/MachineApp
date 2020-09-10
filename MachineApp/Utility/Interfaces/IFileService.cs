@@ -8,5 +8,6 @@ namespace MachineApp.Utility
         string CreateZip(string fileName, List<IFormFile> newFiles);
         string ZipDirectory(string zipName);
         string GetMimeType(string fileName);
+        void DeleteFile(string fileName);
     }
 }
