@@ -160,6 +160,8 @@ namespace MachineApp.Controllers
             Malfunction model = await _databaseRepository.Get<Malfunction>(id);
             var result = await _databaseRepository.Delete<Malfunction>(model);
             
+            _fileService.DeleteFile(model.File);
+
             return RedirectToAction("MalfunctionsTable", "Malfunction");
         }
 
