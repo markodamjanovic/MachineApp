@@ -19,7 +19,9 @@ namespace MachineApp.Models
         
         [Required]
         public int MachineId { get; set; }
-        
+
+        public string File {get; set;}
+    
         public bool Status { get; set; }
         
         public DateTime Created { get; set; }

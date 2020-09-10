@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace MachineApp.ViewModel
 {
@@ -18,11 +21,12 @@ namespace MachineApp.ViewModel
         public int MachineId { get; set; }
 
         [Required]
-        [VerifyMachineName()]
+        [VerifyMachineName]
         public string MachineName {get; set;}
         
+        public string File { get; set; }
         public bool Status { get; set; }
-        
         public DateTime Created { get; set; }
+        public List<IFormFile> Files {get; set;}
     }
 }
