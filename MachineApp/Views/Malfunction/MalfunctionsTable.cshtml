@@ -31,6 +31,7 @@
             <th scope="col">Status</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,14 @@
                             <td> @malfunction.MachineName</td>
                             <td> @malfunction.Created </td>
                             <td> @malfunction.Status </td>
+                            <td>
+                                <form method="get" asp-action="Download" asp-controller="Malfunction">
+                                    <input type="hidden" name="file" value="@malfunction.File" class="form-control"/>
+                                        <button class="btn" type="submit"> 
+                                            <i class="fa fa-download fa-lg" aria-hidden="true"> </i>
+                                        </button>
+                                </form>
+                            </td>
                             <td> 
                                   <form method="post" asp-action="Edit" asp-controller="Malfunction">
                                     <input type="hidden" name="id" value="@malfunction.id" class="form-control"/>
