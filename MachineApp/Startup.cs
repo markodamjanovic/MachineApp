@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using MachineApp.Models;
+using MachineApp.Utility;
 
 namespace MachineApp
 {
@@ -21,6 +22,7 @@ namespace MachineApp
         {
             services.AddScoped<IDatabaseConnection, PostgresConnection>();
             services.AddScoped<IDatabaseRepository, DatabaseRepository>();
+            services.AddScoped<IFileService, FileService>();
             services.AddControllersWithViews();
         }
 
