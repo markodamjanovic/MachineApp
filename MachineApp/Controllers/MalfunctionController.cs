@@ -1,20 +1,25 @@
+using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
 using MachineApp.Models;
 using MachineApp.ViewModel;
-using System.Linq;
-using System;
+using MachineApp.Utility;
+
 
 namespace MachineApp.Controllers
 {
     public class MalfunctionController : Controller
     {
         private readonly IDatabaseRepository _databaseRepository;
+        private readonly IFileService _fileService;
 
-        public MalfunctionController(IDatabaseRepository databaseRepository)
+        public MalfunctionController(IDatabaseRepository databaseRepository, IFileService fileService)
         {
             _databaseRepository = databaseRepository;
+            _fileService = fileService;
         }
         public IActionResult Index()
         {   
@@ -61,9 +66,25 @@ namespace MachineApp.Controllers
                     Name = model.Malfunction.Name,
                     Description = model.Malfunction.Description,
                     MachineId = machineId,
+                    File = model.Malfunction.File,
                     Status = model.Malfunction.Status,
-                    Created = model.Malfunction.Created
+                    Created = model.Malfunction.Created,
                 };
+
+                if (model.Malfunction.Files.Count > 0)
+                {
+                    var zipName = _fileService.CreateZip(model.Malfunction.File, model.Malfunction.Files);
+                    
+                    if(zipName == null)
+                    {
+                        ModelState.AddModelError("Malfunction.Files","Error while uploading zip file");
+                        return View("Edit", model);
+                    }
+                    else
+                    {
+                        malfunction.File = zipName;
+                    }
+                }
                 
                 if (malfunction.id == 0)
                 {
@@ -108,6 +129,7 @@ namespace MachineApp.Controllers
                             MachineId = machine.id,
                             MachineName = machine.Name,
                             Status = malfunction.Status,
+                            File = malfunction.File,
                             Created = malfunction.Created
                         });
 
