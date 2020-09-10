@@ -6,6 +6,7 @@ namespace MachineApp.Utility
     public interface IFileService
     {
         string CreateZip(string fileName, List<IFormFile> newFiles);
-        void DownloadZip();
+        string ZipDirectory(string zipName);
+        string GetMimeType(string fileName);
     }
 }

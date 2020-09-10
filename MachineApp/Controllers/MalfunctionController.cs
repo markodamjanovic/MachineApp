@@ -43,10 +43,20 @@ namespace MachineApp.Controllers
                     MachineId = machine.id,
                     MachineName = machine.Name,
                     Status = malfunction.Status,
+                    File = malfunction.File,
                     Created = malfunction.Created
                 });
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Download(string file)
+        {
+            string fullFilePath = _fileService.ZipDirectory(file);
+            var mimeType = _fileService.GetMimeType(file);
+            
+            return PhysicalFile(fullFilePath, mimeType, file);
         }
 
         [HttpPost]
@@ -85,7 +95,7 @@ namespace MachineApp.Controllers
                         malfunction.File = zipName;
                     }
                 }
-                
+
                 if (malfunction.id == 0)
                 {
                     malfunction.Created = DateTime.Now;

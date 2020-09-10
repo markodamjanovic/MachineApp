@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using MachineApp.Controllers;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace MachineApp.Utility
 {
@@ -23,6 +24,20 @@ namespace MachineApp.Utility
         {
             _webHostEnvironment = webHostEnvironment;
             _logger = logger;
+        }
+        public string ZipDirectory(string zipName) => GetFullFilePath(FILES_FOLDER, zipName);
+
+        public string GetMimeType(string fileName)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            
+            string contentType;
+            if (!provider.TryGetContentType(fileName, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            return contentType;
         }
 
         public string CreateZip(string zipName, List<IFormFile> newFiles)
@@ -67,11 +82,6 @@ namespace MachineApp.Utility
             {
                 return null;
             }
-        }
-
-        public void DownloadZip()
-        {
-            throw new System.NotImplementedException();
         }
 
         private bool ExtractZip(string zipName, string filesFolderPath, string tempFilePath)
