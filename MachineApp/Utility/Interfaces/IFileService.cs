@@ -9,5 +9,6 @@ namespace MachineApp.Utility
         string ZipDirectory(string zipName);
         string GetMimeType(string fileName);
         void DeleteFile(string fileName);
+        bool FileExits(string fileName);
     }
 }

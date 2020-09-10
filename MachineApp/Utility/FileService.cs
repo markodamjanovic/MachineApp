@@ -24,6 +24,7 @@ namespace MachineApp.Utility
             _logger = logger;
         }
         public string ZipDirectory(string zipName) => GetFullFilePath(FILES_FOLDER, zipName);
+        public bool FileExits(string fileName) => File.Exists(GetFullFilePath(FILES_FOLDER, fileName));
 
         public string GetMimeType(string fileName)
         {

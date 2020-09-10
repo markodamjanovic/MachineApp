@@ -53,10 +53,17 @@ namespace MachineApp.Controllers
         [HttpGet]
         public IActionResult Download(string file)
         {
-            string fullFilePath = _fileService.ZipDirectory(file);
-            var mimeType = _fileService.GetMimeType(file);
-            
-            return PhysicalFile(fullFilePath, mimeType, file);
+            if( file != null && _fileService.FileExits(file))
+            {
+                string fullFilePath = _fileService.ZipDirectory(file);
+                var mimeType = _fileService.GetMimeType(file);
+                
+                return PhysicalFile(fullFilePath, mimeType, file);
+            }
+            else
+            {
+                return RedirectToAction("MalfunctionsTable", "Malfunction");
+            }
         }
 
         [HttpPost]
@@ -81,7 +88,7 @@ namespace MachineApp.Controllers
                     Created = model.Malfunction.Created,
                 };
 
-                if (model.Malfunction.Files.Count > 0)
+                if (model.Malfunction.Files != null)
                 {
                     var zipName = _fileService.CreateZip(model.Malfunction.File, model.Malfunction.Files);
                     
