@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MachineApp.Models;
+using MachineApp.Data;
 using System.Linq;
+using MachineApp.Models;
 
 namespace MachineApp.Controllers
 {
@@ -15,7 +16,6 @@ namespace MachineApp.Controllers
             _databaseRepository = databaseRepository;
         }
 
-        [HttpGet]
         public async Task<IActionResult> MachineTable()
         {   
             IEnumerable<Machine> model = await _databaseRepository.GetAll<Machine>();

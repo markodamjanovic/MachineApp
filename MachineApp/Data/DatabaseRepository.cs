@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 
-namespace MachineApp.Models
+namespace MachineApp.Data
 {
     public class DatabaseRepository : IDatabaseRepository
     {

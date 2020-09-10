@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MachineApp.Models;
 using MachineApp.ViewModel;
 using MachineApp.Utility;
-
+using MachineApp.Data;
 
 namespace MachineApp.Controllers
 {

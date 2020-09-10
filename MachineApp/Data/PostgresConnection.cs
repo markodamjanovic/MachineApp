@@ -2,7 +2,7 @@ using System.Data;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace MachineApp.Models
+namespace MachineApp.Data
 {
     public class PostgresConnection : IDatabaseConnection
     {   

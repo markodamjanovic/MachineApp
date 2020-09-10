@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace MachineApp.Models
+namespace MachineApp.Data
 {
     public interface IDatabaseConnection
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MachineApp.Models
+namespace MachineApp.Data
 {
     public interface IDatabaseRepository
     {
