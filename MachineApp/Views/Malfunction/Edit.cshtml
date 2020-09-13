@@ -42,33 +42,21 @@
                         }
                     </select>
                     <span asp-validation-for="Malfunction.MachineName" class="text-danger"></span>
-                </div>
-                    <div class="form-group">
-                    <label class="form-check-label" asp-for="Malfunction.Files">Files </label>
-                        <div class="custom-file">
-                            <input  asp-for="Malfunction.Files" class="form-control custom-file-input" />
-                            <label class="custom-file-label" asp-for="Malfunction.Files">Upload Photo</label>
+               <div class="form-group">
+                   <label for="actions"></label>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col">
+                            <button asp-action="MalfunctionsTable" asp-controller="Malfunction" class="btn btn-primary"> 
+                                <i class="fa fa-undo fa-lg" aria-hidden="true"></i> 
+                                Return
+                            </button>
                         </div>
-                    </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input type="checkbox" asp-for="Malfunction.Status" class="form-check-input" />
-                        <label class="form-check-label" asp-for="Malfunction.Status">Status </label>
-                        <span asp-validation-for="Malfunction.Status" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row justify-content-center align-items-center">
-                     <div class="col">
-                        <button asp-action="MalfunctionsTable" asp-controller="Malfunction" class="btn btn-primary"> 
-                            <i class="fa fa-undo fa-lg" aria-hidden="true"></i> 
-                            Return
-                        </button>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary"> 
-                            <i class="fa fa-save fa-lg" aria-hidden="true"></i> 
-                            Save
-                        </button>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary"> 
+                                <i class="fa fa-save fa-lg" aria-hidden="true"></i> 
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
                  @section Scripts {
