@@ -42,6 +42,16 @@
                         }
                     </select>
                     <span asp-validation-for="Malfunction.MachineName" class="text-danger"></span>
+                <div class="form-group">
+                    <label for="uploads"></label>
+                     <form enctype="multipart/form-data">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input  asp-for="@Model.Malfunction.Files" class="form-control custom-file-input" multiple/>
+                                <label class="custom-file-label" asp-for="@Model.Malfunction.Files">Upload Files</label>
+                            </div>
+                    </form>
+                </div>
                <div class="form-group">
                    <label for="actions"></label>
                     <div class="row justify-content-center align-items-center">
