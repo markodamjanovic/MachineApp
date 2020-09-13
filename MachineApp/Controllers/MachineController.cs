@@ -19,7 +19,7 @@ namespace MachineApp.Controllers
         public async Task<IActionResult> MachineTable()
         {   
             IEnumerable<Machine> model = await _databaseRepository.GetAll<Machine>();
-            return View(model);
+            return View(model.OrderBy(x => x.Name));
         }
 
 
