@@ -31,7 +31,7 @@ namespace MachineApp.Controllers
             IEnumerable<Malfunction> malfunctions = await _databaseRepository.GetAll<Malfunction>();
             IEnumerable<Machine> machines = await _databaseRepository.GetAll<Machine>();
 
-            var model = malfunctions.Join(
+            var allMalfunctions = malfunctions.Join(
                 machines,
                 malf => malf.MachineId,
                 mach => mach.id,
@@ -46,6 +46,8 @@ namespace MachineApp.Controllers
                     File = malfunction.File,
                     Created = malfunction.Created
                 });
+
+            var model = allMalfunctions.Where(m => m.Status == true).OrderByDescending(d => d.Created);
 
             return View(model);
         }
@@ -84,7 +86,7 @@ namespace MachineApp.Controllers
                     Description = model.Malfunction.Description,
                     MachineId = machineId,
                     File = model.Malfunction.File,
-                    Status = model.Malfunction.Status,
+                    Status = true,
                     Created = model.Malfunction.Created,
                 };
 
@@ -120,6 +122,19 @@ namespace MachineApp.Controllers
             }
             
             return View("Edit", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FixMalfunction(int id)
+        {   
+            if(id > 0)
+            {
+                Malfunction malfunction = await _databaseRepository.Get<Malfunction>(id);
+                malfunction.Status = false;
+                var a = await _databaseRepository.Update<Malfunction>(malfunction);
+            }
+            
+            return RedirectToAction("MalfunctionsTable", "Malfunction");
         }
 
         [HttpPost]
@@ -167,8 +182,11 @@ namespace MachineApp.Controllers
             Malfunction model = await _databaseRepository.Get<Malfunction>(id);
             var result = await _databaseRepository.Delete<Malfunction>(model);
             
-            _fileService.DeleteFile(model.File);
-
+            if(model.File != null)
+            {
+                _fileService.DeleteFile(model.File);
+            }
+            
             return RedirectToAction("MalfunctionsTable", "Malfunction");
         }
 

@@ -44,7 +44,14 @@
                             <td> @malfunction.Description </td>
                             <td> @malfunction.MachineName</td>
                             <td> @malfunction.Created </td>
-                            <td> @malfunction.Status </td>
+                            <td>  
+                                 <form method="post" asp-action="FixMalfunction" asp-controller="Malfunction">
+                                    <input type="hidden" name="id" value="@malfunction.id" class="form-control"/>
+                                    <button type="submit" class="btn btn-primary"> 
+                                           <i class="fa fa-wrench fa-lg" aria-hidden="true">  </i>
+                                    </button>
+                                </form>
+                            </td>
                             <td>
                                 <form method="get" asp-action="Download" asp-controller="Malfunction">
                                     <input type="hidden" name="file" value="@malfunction.File" class="form-control"/>
@@ -54,7 +61,7 @@
                                 </form>
                             </td>
                             <td> 
-                                  <form method="post" asp-action="Edit" asp-controller="Malfunction">
+                                <form method="post" asp-action="Edit" asp-controller="Malfunction">
                                     <input type="hidden" name="id" value="@malfunction.id" class="form-control"/>
                                     <button type="submit" class="btn btn-primary"> 
                                            <i class="fa fa-pencil fa-lg" aria-hidden="true">  </i>
